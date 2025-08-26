@@ -6,16 +6,18 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 
-const formatter = new Intl.NumberFormat('en-US', {
+export function formatCurrency(amount, decimal = true) {
+  if (amount === null || amount === undefined || isNaN(amount)) return "0.00";
+
+  const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'NGN',
-    minimumFractionDigits: 0,
+    minimumFractionDigits: decimal ? 2 : 0,
+    maximumFractionDigits: decimal ? 2 : 0,
   });
-  
-  export function formatCurrency(amount) {
-    if (!amount || amount === null) return "0.00";
-    return formatter.format(amount).replace('NGN', '').trim();
-  }
+
+  return formatter.format(amount).replace('NGN', '').trim();
+}
 
 export function capitalize(str: string) {
     return str ? str.charAt(0).toUpperCase() + str.slice(1).toLowerCase() : '';

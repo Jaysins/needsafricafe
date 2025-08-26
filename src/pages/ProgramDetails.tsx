@@ -112,7 +112,7 @@ const ProgramDetails = () => {
       <section className="relative h-[60vh] overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src={`${API_URL}${program?.cover_image}`}
+            src={`${program?.cover_image}`}
             alt={program?.title}
             className="w-full h-full object-cover"
           />
@@ -195,7 +195,7 @@ const ProgramDetails = () => {
                     <div className="p-2 border shadow-md flex flex-col items-center justify-center w-full rounded-md">
                       <p className="text-2xl font-bold text-primary leading-relaxed flex justify-between flex-col items-center">
                         <Users className="size-8" />
-                        { formatCurrency(program?.beneficiary_count)}
+                        { formatCurrency(program?.beneficiary_count, false) }
                       </p>
                       <span className="text-muted-foreground">Total beneficiaries </span>
                     </div>
@@ -245,7 +245,7 @@ const ProgramDetails = () => {
                     {/* Main Image */}
                     {mainImage && (
                       <img
-                        src={`${API_URL}${mainImage}`}
+                        src={`${mainImage}`}
                         alt="Proof of Delivery"
                         className={`w-[800px] h-[500px] mx-auto rounded-lg object-cover transition-transform duration-300 ${
                           animateMainImage ? 'scale-105 opacity-0' : 'scale-100 opacity-100'
@@ -268,7 +268,7 @@ const ProgramDetails = () => {
                       {photos.map((photo, idx) => (
                         <img
                           key={idx}
-                          src={`${API_URL}${photo.image}`}
+                          src={`${photo.image}`}
                           alt={`Thumbnail ${idx + 1}`}
                           className={`h-20 w-20 object-cover rounded-lg cursor-pointer border-2 transition ${
                             mainImage === photo.image ? 'border-primary' : 'border-transparent'
@@ -371,7 +371,7 @@ const ProgramDetails = () => {
 
                   {program?.donation_reason && (
                     <div>
-                      <CardTitle> Reason for Donation Continuation</CardTitle>
+                      <CardTitle className="text-base font-semibold"> Reason for Donation Continuation</CardTitle>
                       <span className="text-sm">{program?.donation_reason}</span>
                     </div>
                   )}

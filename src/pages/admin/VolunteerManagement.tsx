@@ -48,11 +48,13 @@ const VolunteerManagement: React.FC = () => {
     // If user wants full export, either fetch all pages server-side endpoint or iterate client-side.
     // Here we export current page only (client-side). If you want full dataset, implement server export endpoint.
     const rows = [
-      ['ID', 'First Name', 'Last Name', 'Age', 'Country', 'Role', 'Availability', 'Hours', 'Days', 'CV URL', 'Created At'],
+      ['ID', 'First Name', 'Last Name', 'Phone', 'Email', 'Age', 'Country', 'Role', 'Availability', 'Hours', 'Days', 'CV URL', 'Created At'],
       ...volunteers.map((v: any) => [
         v.id,
         v.first_name,
         v.last_name,
+        v.phone_number ?? '',
+        v.email ?? '',
         v.age ?? '',
         v.country ?? '',
         v.role ?? '',
@@ -92,7 +94,7 @@ const VolunteerManagement: React.FC = () => {
       return;
     }
     // Open CV in new tab (assumes cvUrl is absolute or relative to your domain)
-    window.open(`${API_URL}${cvUrl}`, '_blank');
+    window.open(`${cvUrl}`, '_blank');
   };
 
   if (isPending) return <div className="p-6">Loading volunteers...</div>;
@@ -165,6 +167,9 @@ const VolunteerManagement: React.FC = () => {
                 <TableRow>
                   <TableHead>ID</TableHead>
                   <TableHead>Name</TableHead>
+                  <TableHead>Phone</TableHead>
+                  <TableHead>Email</TableHead>
+
                   <TableHead>Age</TableHead>
                   <TableHead>Country</TableHead>
                   <TableHead>Role</TableHead>
@@ -186,6 +191,8 @@ const VolunteerManagement: React.FC = () => {
                   <TableRow key={v.id}>
                     <TableCell className="font-medium">{v.id}</TableCell>
                     <TableCell>{`${v.first_name} ${v.last_name}`}</TableCell>
+                    <TableCell>{v.phone_number ?? '-'}</TableCell>
+                    <TableCell>{v.email ?? '-'}</TableCell>
                     <TableCell>{v.age ?? '-'}</TableCell>
                     <TableCell>{v.country ?? '-'}</TableCell>
                     <TableCell>{v.role ?? '-'}</TableCell>

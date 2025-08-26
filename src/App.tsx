@@ -1,4 +1,5 @@
 import { Toaster } from "@/components/ui/toaster";
+import { useEffect } from "react";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -33,6 +34,7 @@ import ProjectProofPage from "./pages/proofs";
 import TermsOfService from "./pages/TermsOfService";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import ScrollToTop from './components/Shared/ScrollToTop'
+import { API_URL } from '../config'
 
 
 const queryClient = new QueryClient();
@@ -72,7 +74,7 @@ const AppContent = () => {
           <Route path="/volunteer" element={<Volunteer/>}/>
           <Route path="/volunteer/thank-you" element={<VolunteerThankYou />} />
           <Route path="/projects/proof/:projectId" element={<ProjectProofPage/>} />
-           
+
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
@@ -81,15 +83,25 @@ const AppContent = () => {
   );
 };
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <AppContent />
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+
+const App = () => {
+  useEffect(() => {
+    // 👇 Call your backend "wake-up" endpoint on first load
+    fetch(`${API_URL}`) // or "/" or any lightweight GET route
+      .then(() => console.log("Backend wake-up call sent ✅"))
+      .catch((err) => console.error("Wake-up call failed ❌", err));
+  }, []);
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <AppContent />
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
 export default App;

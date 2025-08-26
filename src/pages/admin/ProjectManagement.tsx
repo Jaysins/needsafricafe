@@ -318,7 +318,7 @@ const ProjectManagement = () => {
             <div className="aspect-video bg-muted relative">
               {project.cover_image ? (
                 <img 
-                  src={`${API_URL}${project.cover_image}`} 
+                  src={`${project.cover_image}`}
                   alt={project.title}
                   className="w-full h-full object-cover"
                 />

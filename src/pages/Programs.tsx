@@ -209,7 +209,7 @@ const Projects = () => {
                   key={project.id}
                   title={project.title}
                   description={project.summary}
-                  image={`${API_URL}${project.cover_image}`}
+                  image={`${project.cover_image}`}
                   category={capitalize(project.category)}
                   impact={project.impact}
                   href={`/projects/${project.id}`}

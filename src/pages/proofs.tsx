@@ -76,7 +76,7 @@ const ProofOfDeliveryPage = () => {
             <Card key={photo.id} className="relative">
               <CardContent>
                 <img
-                  src={`${API_URL}${photo.image}`}
+                  src={`${photo.image}`}
                   alt={photo.name}
                   className="w-full h-48 object-cover rounded-md mb-3"
                 />
